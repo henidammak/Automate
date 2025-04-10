@@ -1,0 +1,79 @@
+<mat-dialog-content class="dialog-content">
+  <!-- Warning for nested composite task editing -->
+  <div *ngIf="warningOnly" style="text-align: center;">
+    <img 
+      src="assets/css/danger.png" 
+      alt="Warning" 
+      width="32" 
+      height="32" 
+      style="display: block; margin: 0 auto 5px; margin-top: 20px;">
+    <p style="color: red; font-weight: normal;">
+      Modify the main component in the palette, then replace it here.
+    </p>
+  </div>
+
+  <!-- Only show these checks when not in warningOnly mode -->
+  <ng-container *ngIf="!warningOnly">
+    <!-- Vérification des nœuds Start et End -->
+    <div *ngIf="!hasStartAndEndNode(); else checkConnections" style="text-align: center;">
+      <img 
+        src="assets/css/danger.png" 
+        alt="Warning" 
+        width="32" 
+        height="32" 
+        style="display: block; margin: 0 auto 5px; margin-top: 20px;">
+      <p style="color: red; font-weight: normal;">
+        You cannot add a composite task that does not contain a Start node and an End node.
+      </p>
+    </div>
+
+    <!-- Vérification des connexions -->
+    <ng-template #checkConnections>
+      <div *ngIf="hasUnconnectedNodes(); else formContent" style="text-align: center;">
+        <img 
+          src="assets/css/danger.png" 
+          alt="Warning" 
+          width="32" 
+          height="32" 
+          style="display: block; margin: 0 auto 5px; margin-top: 20px;">
+        <p style="color: red; font-size: 15px; text-align: start;">
+          1. You cannot add a composite task, and there are unconnected nodes. <br>
+          2. Start/End node must have only one link. <br>
+          3. All task nodes must have two links (from/to).
+        </p>
+      </div>
+    </ng-template>
+
+    <!-- Sinon, afficher le formulaire -->
+    <ng-template #formContent>
+      <h2 mat-dialog-title style="color: #284B63;">Add composite task</h2>
+      <mat-form-field appearance="outline">
+          <label>Task title</label>
+          <input matInput [(ngModel)]="taskTitle" class="custom-input">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+          <label>Description</label>
+          <input matInput [(ngModel)]="description" class="custom-input">
+      </mat-form-field>
+
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" #fileInput hidden>
+      <button mat-raised-button (click)="fileInput.click()">Choose File</button>
+
+      <div *ngIf="imagePreview">
+        <img [src]="imagePreview" class="preview-img" alt="Aperçu de l'image">
+        <p>{{ filePath }}</p>
+      </div>
+    </ng-template>
+  </ng-container>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <ng-container *ngIf="!warningOnly && hasStartAndEndNode() && !hasUnconnectedNodes(); else closeOnly">
+    <button mat-button class="button-close" (click)="onCancel()">Close</button>
+    <button mat-button class="button-add" (click)="onSave()">Add</button>
+  </ng-container>
+  <ng-template #closeOnly>
+    <button mat-button class="button-close" (click)="onCancel()">Close</button>
+  </ng-template>
+</mat-dialog-actions>

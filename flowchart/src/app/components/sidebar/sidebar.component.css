@@ -1,0 +1,195 @@
+.sidebar {
+  margin-top: 100px;
+  width: 200px;
+  height: calc(100vh - 100px); /* Adjusted to account for margin-top */
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: #FAFAFB;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  padding: 15px;
+  overflow-y: auto; /* Add scrollbar when content overflows */
+  display: flex;
+  flex-direction: column;
+}
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sidebar ul li {
+    margin: 15px 0;
+  }
+
+  .sidebar ul li a {
+    color: gray;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+  }
+
+  .sidebar ul li a:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  label {
+    margin-top: 5px;
+    color: #81929E;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+
+  }
+
+  textarea {
+    width: 90%;
+    height: 150px;
+    /* Augmente la hauteur */
+    resize: vertical;
+    /* Permet à l'utilisateur de redimensionner verticalement */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+
+  .checkbox-container {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+
+    font-weight: bold;
+    background-color: #3C6E71;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font: 11pt Figtree, sans-serif;
+  }
+
+  button:hover {
+    background-color: #2a5254;
+  }
+
+  h3 {
+    color: #284B63;
+  }
+
+  .sleep input {
+    width: 90%;
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid gray;
+    border-radius: 5px;
+  }
+  #startTimer {
+    width: 90%;
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid gray;
+    border-radius: 5px;
+  }
+
+
+
+
+  .composite-task {
+    margin-top: auto;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .composite-task button {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: #3C6E71;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .composite-task button:hover {
+    background-color: #2a5254;
+  }
+
+  .composite-task mat-icon {
+    font-size: 20px;
+  }
+
+  .select-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: white;
+    color: #333;
+  }
+  
+  .text-input {
+    width: 90%;
+    padding: 8px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+  }
+  
+  .action-section {
+    margin-top: 10px;
+    margin-bottom: 15px;
+
+  }
+  
+  .screen_automator button {
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  .custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #3C6E71;
+    border-radius: 4px;
+    background-color: white;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  .custom-checkbox:checked {
+    background-color: #3C6E71;
+    border-color: #3C6E71;
+  }
+  
+  .custom-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 6px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }

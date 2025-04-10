@@ -1,0 +1,46 @@
+<div class="toolbar">
+  <!-- <div class="icon-container" (click)="togglefile()" [class.active]="fileOpen">
+    <img src="../../../assets/css/android.png" alt="Icon" class="toolbar-icon-phone" />
+    <div *ngIf="fileOpen" class="icon-menu">
+      <button mat-button (click)="openNewDeviceModal()">Add a device</button>
+      <button mat-button (click)="openDeviceListModal()">Show devices</button>
+    </div>
+
+      <img src="../../../assets/css/app.png" alt="Icon" class="toolbar-icon-config" style="padding-left: 15px;" (click)="openConfigModal()"/>
+
+  </div> -->
+  <div class="icon-container" (click)="togglefile()" [class.active]="fileOpen">
+    <img src="../../../assets/css/android.png" alt="Icon" class="toolbar-icon-phone" />
+    <div *ngIf="fileOpen" class="icon-menu">
+      <button mat-button (click)="openNewDeviceModal()">Add a device</button>
+      <button mat-button (click)="openDeviceListModal()">Show devices</button>
+    </div>
+  </div>
+
+  <div class="icon-container" (click)="openConfigModal()">
+    <img src="../../../assets/css/app.png" alt="Icon" class="toolbar-icon-config"  />
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="buttons">
+    <!-- Afficher Start et Task + si on n'est pas en mode édition -->
+    <button *ngIf="!isEditing" mat-button class="button-start" (click)="openStartModal()">Start</button>
+    <button *ngIf="!isEditing" mat-button class="button-task" (click)="openTaskModal()">Task +</button>
+
+    <!-- Afficher le bouton "check" en mode édition -->
+    <button *ngIf="isEditing" class="check-btn" (click)="openEditCompTaskModal()">
+      <mat-icon>check</mat-icon>
+    </button>
+
+  </div>
+
+  <div class="icon-container" (click)="toggleShare()" [class.active]="shareOpen">
+    <img src="../../../assets/css/share.png" alt="Icon" class="toolbar-icon-share" />
+    <div *ngIf="shareOpen" class="icon-menu" style="position: absolute; left: -90px; width: 135px;">
+      <button mat-button>Print diagram</button>
+      <button mat-button>Export diagram</button>
+      <button mat-button>Save diagram</button>
+    </div>
+  </div>
+</div>

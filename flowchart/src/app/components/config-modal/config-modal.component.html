@@ -1,0 +1,25 @@
+<h2 mat-dialog-title style="color: #284B63;">General configuration</h2>
+
+<mat-dialog-content class="dialog-content">
+
+    <!-- Affichage du formulaire -->
+    <mat-form-field appearance="outline">
+        <label>WS URL</label>
+        <input matInput class="custom-input">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <label>Port</label>
+        <input matInput class="custom-input">
+    </mat-form-field>
+    <div class="checkbox-container">
+        <input type="checkbox" class="custom-checkbox" />
+        <label>debug</label>
+    </div>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button class="button-close" (click)="onCancel()">Close</button>
+    <button mat-button class="button-add" (click)="onSave()">Save</button>
+</mat-dialog-actions>

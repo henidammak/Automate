@@ -1,0 +1,25 @@
+/* .sampleWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @media (min-width: 1280px) {
+    .sampleWrapper {
+      flex-direction: row;
+    }
+    .sampleWrapper > div:first-child {
+      margin-right: 0.5rem;
+      margin-bottom: 0;
+    }
+  }
+   */
+
+   .my-custom-icon {
+    filter: brightness(0) saturate(100%) invert(42%) sepia(78%) saturate(600%) hue-rotate(169deg) brightness(90%) contrast(88%);
+  }
+  
+  
+
+
+  
+

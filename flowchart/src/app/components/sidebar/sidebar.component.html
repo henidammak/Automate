@@ -1,0 +1,203 @@
+<div class="sidebar">
+
+  <div *ngIf="selectedNode">
+    <h3 style="text-align: center;">Task Configuration</h3>
+    <p style="text-align: center; "><strong>Task :</strong> {{ selectedNode.text }}</p>
+    <p style="text-align: center;font-size: 12px;">{{ selectedNode.description }}</p>
+
+    <div [ngSwitch]="selectedNode.category">
+
+
+
+
+      <div *ngSwitchCase="'Start'" class="start">
+        <label>Time Out</label>
+        <input type="number" id="startTimer" min="0" [(ngModel)]="selectedNode.Time_out"
+          (change)="updateNodeProperty('Time_out', selectedNode.Time_out)" step="500">
+        <div class="checkbox-container">
+          <input type="checkbox" class="custom-checkbox" [(ngModel)]="selectedNode.As_thread"
+            (change)="updateNodeProperty('As_thread', selectedNode.As_thread)" />
+          <label>As Thread</label>
+        </div>
+        <div class="checkbox-container">
+          <input type="checkbox" class="custom-checkbox"  [(ngModel)]="selectedNode.Sequential_exec"
+          (change)="updateNodeProperty('Sequential_exec', selectedNode.Sequential_exec)" />
+          <label style="font-size: 15.5px;">Sequential execution</label>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="'Cmd Stage'" class="cmd_stage">
+        <label for="cmdInput">Command :</label>
+        <textarea id="cmdInput" placeholder="Enter your command..." [(ngModel)]="selectedNode.cmd"
+          (input)="updateNodeProperty('cmd', selectedNode.cmd)">
+        </textarea>
+
+        <div class="checkbox-container">
+          <input type="checkbox" id="rootCheck" class="custom-checkbox" [(ngModel)]="selectedNode.root"
+            (change)="updateNodeProperty('root', selectedNode.root)" />
+          <label for="rootCheck">Run as root</label>
+        </div>
+
+        <button id="executeBtn" (click)="saveChanges()">Save</button>
+      </div>
+
+      <div *ngSwitchCase="'Sleep'" class="sleep">
+        <input type="number" id="sleepTimer" min="0" [(ngModel)]="selectedNode.Time_sleep"
+          (change)="updateNodeProperty('Time_sleep', selectedNode.Time_sleep)" step="500">
+        <button (click)="saveChanges()">Save</button>
+      </div>
+      <div *ngSwitchCase="'Screen Automator'" class="screen_automator">
+        <!-- Action Type Selector -->
+        <label for="actionType">Action Type:</label>
+        <!-- <select [(ngModel)]="selectedNode.Action_type"
+          (change)="updateNodeProperty('Action_type', selectedNode.Action_type)" class="select-input">
+          <option value="Global Action">Global Action</option>
+          <option value="Click In Text">Click In Text</option>
+          <option value="Click In (x, y)">Click In (x, y)</option>
+          <option value="Log Screen">Log Screen</option>
+        </select> -->
+        <select [(ngModel)]="selectedNode.Action_type" (change)="onActionTypeChange(selectedNode.Action_type)"
+          class="select-input">
+          <option value="Global Action">Global Action</option>
+          <option value="Click In Text">Click In Text</option>
+          <option value="Click In (x, y)">Click In (x, y)</option>
+          <option value="Log Screen">Log Screen</option>
+        </select>
+
+
+        <!-- Global Action Section - Unchanged -->
+        <div *ngIf="selectedNode.Action_type === 'Global Action'" class="action-section">
+          <label for="globalOption">Choose Action:</label>
+          <select [(ngModel)]="selectedNode.GlobalAction_type"
+            (change)="updateNodeProperty('GlobalAction_type', selectedNode.GlobalAction_type)" class="select-input">
+            <option [ngValue]="14">Show Launcher's all apps</option>
+            <option [ngValue]="11">Trigger the Accessibility Button</option>
+            <option [ngValue]="12">Bring up the Accessibility Button's chooser menu</option>
+            <option [ngValue]="13">Trigger the Accessibility Shortcut</option>
+            <option [ngValue]="1">Go back</option>
+            <option [ngValue]="15">Dismiss the notification shade</option>
+            <option [ngValue]="20">Trigger dpad center keyevent</option>
+            <option [ngValue]="17">Trigger dpad down keyevent</option>
+            <option [ngValue]="18">Trigger dpad left keyevent</option>
+            <option [ngValue]="19">Trigger dpad right keyevent</option>
+            <option [ngValue]="16">Trigger dpad up keyevent</option>
+            <option [ngValue]="2">Go home</option>
+            <option [ngValue]="10">Send the KEYCODE_HEADSETHOOK KeyEvent</option>
+            <option [ngValue]="8">Lock the screen</option>
+            <option [ngValue]="22">Trigger media play/pause key event</option>
+            <option [ngValue]="21">Trigger menu key event</option>
+            <option [ngValue]="4">Open the notifications</option>
+            <option [ngValue]="6">Open the power long-press dialog</option>
+            <option [ngValue]="5">Open the quick settings</option>
+            <option [ngValue]="3">Toggle showing the overview of recent apps</option>
+            <option [ngValue]="9">Take a screenshot</option>
+            <option [ngValue]="7">Toggle docking the current app's window</option>
+          </select>
+
+        </div>
+
+        <!-- Click In Text Section  -->
+        <div *ngIf="selectedNode.Action_type === 'Click In Text'" class="action-section">
+          <label for="textType">Text Selector</label>
+          <select [(ngModel)]="selectedNode.ClickInText_textSelector"
+            (change)="updateNodeProperty('ClickInText_textSelector', selectedNode.ClickInText_textSelector)"
+            class="select-input">
+            <option value="text">Text</option>
+            <option value="contentDescription">Content Description</option>
+            <option value="tooltipText">Tooltip Text</option>
+          </select>
+
+          <label for="textType">Compare Type</label>
+          <select [(ngModel)]="selectedNode.ClickInText_CompareType"
+            (change)="updateNodeProperty('ClickInText_CompareType', selectedNode.ClickInText_CompareType)"
+            class="select-input">
+            <option value="exactText">Exact Text</option>
+            <option value="startWith">Start With</option>
+            <option value="contain">Contain</option>
+          </select>
+
+          <label for="indexValue">Index</label>
+          <input type="number" id="indexValue" class="text-input" [(ngModel)]="selectedNode.ClickInText_Index"
+            (input)="updateNodeProperty('ClickInText_Index', selectedNode.ClickInText_Index)" />
+
+          <label for="textValue">Enter Text:</label>
+          <input type="text" id="textValue" class="text-input" [(ngModel)]="selectedNode.ClickInText_text"
+            (input)="updateNodeProperty('ClickInText_text', selectedNode.ClickInText_text)" />
+        </div>
+        <!-- Click In (x, y))-->
+        <div *ngIf="selectedNode.Action_type === 'Click In (x, y)'" class="action-section">
+          <label for="xValue">X Coordinate:</label>
+          <input type="number" class="text-input" [(ngModel)]="selectedNode.ClickInXY_X"
+            (input)="updateNodeProperty('ClickInXY_X', selectedNode.ClickInXY_X)" />
+
+          <label for="yValue">Y Coordinate:</label>
+          <input type="number" class="text-input" [(ngModel)]="selectedNode.ClickInXY_Y"
+            (input)="updateNodeProperty('ClickInXY_Y', selectedNode.ClickInXY_Y)" />
+        </div>
+        <!-- log screen-->
+        <div *ngIf="selectedNode.Action_type === 'Log Screen'" class="action-section">
+
+        </div>
+
+        <!-- Make sure the button is not inside the conditional div -->
+        <button (click)="saveChanges()" style="margin-bottom: 50px;">Save</button>
+      </div>
+
+      <div *ngSwitchCase="'Intent'" class="intent">
+        <label for="intentAction">Action:</label>
+        <input type="text" id="intentAction" class="text-input" [(ngModel)]="selectedNode.Action"
+          (input)="updateNodeProperty('Action', selectedNode.Action)" />
+
+        <label for="packageName">Package Name:</label>
+        <input type="text" id="packageName" class="text-input" [(ngModel)]="selectedNode.PackageName"
+          (input)="updateNodeProperty('PackageName', selectedNode.PackageName)" />
+
+        <label for="className">Class Name:</label>
+        <input type="text" id="className" class="text-input" [(ngModel)]="selectedNode.ClassName"
+          (input)="updateNodeProperty('ClassName', selectedNode.ClassName)" />
+
+        <label for="data">Data:</label>
+        <input type="text" id="data" class="text-input" [(ngModel)]="selectedNode.Data"
+          (input)="updateNodeProperty('Data', selectedNode.Data)" />
+
+        <label for="actionType">Action Type:</label>
+        <select id="actionType" class="select-input" [(ngModel)]="selectedNode.ActionType"
+          (change)="updateNodeProperty('ActionType', selectedNode.ActionType)">
+          <option value="Send Broadcast">Send Broadcast</option>
+          <option value="Start Activity">Start Activity</option>
+        </select>
+
+        <button (click)="saveChanges()" style="margin-top: 15px;margin-bottom: 40px;">Save</button>
+      </div>
+
+
+      <div *ngSwitchCase="'CompositeTask'" class="composite-task">
+        <p style="text-align: center;font-size: 12px;">1.To edit this task, click on the pen button. </p>
+        <p style="text-align: center;font-size: 12px;">2.To delete this task, click on the trash button.</p>
+        <div style="display: flex; justify-content: center; gap: 10px;">
+          <!-- <button  style="background: yellow; border: none; cursor: pointer;">
+            <i class="fas fa-edit"></i>
+          </button> -->
+          <button class="edit-btn" (click)="editChanges()">
+            <mat-icon>edit</mat-icon>
+
+          </button>
+          <button class="delete-btn" (click)="deleteTask()">
+            <mat-icon>delete</mat-icon>
+
+          </button>
+        </div>
+
+
+      </div>
+
+      <!-- Cas par défaut si aucun match -->
+      <div *ngSwitchDefault>
+        <p style="text-align: center; color: red;"> task has no configuration <br> <span
+            style="text-align: center;font-size: 12px;">(only simple tasks have configurations)</span> </p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
