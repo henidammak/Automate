@@ -10,6 +10,8 @@ import { ScreenAutomator_Task } from 'src/Models/ScreenAutomator_Task';
 import { Sleep_Task } from 'src/Models/Sleep_Task';
 import { Start_Task } from 'src/Models/Start_Task';
 import { DiagramSelectionService } from 'src/Services/diagram-selection.service';
+import { PipelineSenderService } from 'src/Services/pipeline-sender.service';
+import { WebSocketService } from 'src/Services/web-socket.service';
 
 @Component({
   selector: 'app-gojs-diagram',
@@ -24,7 +26,7 @@ export class GojsDiagramComponent implements AfterViewInit {
   private startSubscription!: Subscription;
   task: any = {}; // Stocke le dictionnaire recu par le moadal ici
   ////////
-  constructor(private selectionService: DiagramSelectionService) {}
+  constructor(private selectionService: DiagramSelectionService,private pipelineSender: PipelineSenderService,private websocketService: WebSocketService) {}
   //////////
   // cmdstage!: CmdStage;
 
@@ -36,6 +38,8 @@ export class GojsDiagramComponent implements AfterViewInit {
       console.error("Erreur: 'myDiagramDiv' n'existe pas.");
     }
   }
+
+
 
   initDiagram(): void {
     //création de l'objet mydiagram
@@ -1052,6 +1056,8 @@ export class GojsDiagramComponent implements AfterViewInit {
     if (this.editSubscription) {
       this.editSubscription.unsubscribe();
     }
+     // Ferme la connexion WebSocket lorsque le composant est détruit
+     this.websocketService.closeConnection();
   }
 
   // les nodes personalisé
@@ -1378,6 +1384,17 @@ export class GojsDiagramComponent implements AfterViewInit {
     if (outputTextArea) {
       outputTextArea.value = JSON.stringify(formattedJson, null, 2);
     }
+
+     // Envoi HTTP ici
+    // this.pipelineSender.sendPipeline(formattedJson).subscribe({
+    //   next: (res) => console.log("Pipeline envoyé avec succès :", res),
+    //   error: (err) => console.error("Erreur lors de l'envoi :", err)
+    // });
+    // Envoi du JSON via WebSocket
+    // console.log(formattedJson)
+    this.websocketService.sendMessage('sallem');
+    console.log("Pipeline envoyé via WebSocket");
+
   }
   
   

@@ -27,6 +27,7 @@ import { NewDeviceModalComponent } from './components/new-device-modal/new-devic
 import { StartModalComponent } from './components/start-modal/start-modal.component';
 import {  EditCompTaskModalComponent } from './components/edit-comp-task-modal/edit-comp-task-modal.component';
 import { ConfigModalComponent } from './components/config-modal/config-modal.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -65,6 +66,7 @@ import { ConfigModalComponent } from './components/config-modal/config-modal.com
     MatButtonModule  ,
     MatFormFieldModule,  
     MatInputModule  ,
+    HttpClientModule,
    
   ],
   providers: [],

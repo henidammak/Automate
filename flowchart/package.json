@@ -22,6 +22,7 @@
     "@angular/router": "^16.2.0",
     "gojs": "^3.0.19",
     "ngx-material-file-input": "^4.0.1",
+    "ngx-websocket": "^0.4.2",
     "prismjs": "^1.29.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
